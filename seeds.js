@@ -12,7 +12,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/farm3', { useNewUrlParser: true, use
     })
 
     // const p = Product({
-    //     name: 'Ruby Grapefruit',
+    //     name: 'Ruby Grapefruit',mongo
     //     price: 1.99,
     //     category: 'fruit'
     // })

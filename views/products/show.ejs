@@ -13,5 +13,9 @@
         <li>Price $: <%=product.price %> </li>
     </ul>
 <a href="/products">Products</a>
+<a href="/products/<%=product.id%>/edit">Edit</a>
+<form action="/products/<%=product.id%>?_method=DELETE" method="POST">
+    <button>DELETE</button>
+</form>
 </body>
 </html>

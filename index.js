@@ -36,7 +36,12 @@ app.get('/products/new', (req, res)=>{
     res.render("products/new")
     })
     
-
+    app.get("/products", async(req, res)=>{
+        const products = await Product.find({})
+        res.render("products/index", {products})
+        //res.send(`All products3 ${products}`)
+    } )
+    
 app.get("/products/:id", async(req, res)=>{
     const {id} = req.params
     const product = await Product.findById(id)
@@ -44,10 +49,32 @@ app.get("/products/:id", async(req, res)=>{
     //res.send(`All products3 ${products}`)
 } )
 
+app.get("/products/:id/edit", async(req, res)=>{
+    // res.send("edit")
+    const {id} = req.params
+    const product = await Product.findById(id)
+    res.render("products/edit", {product})
 
-app.get("/products", async(req, res)=>{
-    const products = await Product.find({})
-    res.render("products/index", {products})
-    //res.send(`All products3 ${products}`)
+} )
+app.put("/products/:id", async(req, res)=>{
+    // res.send("edit")
+    const {id} = req.params
+    const product = await Product.findByIdAndUpdate(id, req.body, {runValidators:true, new: true})
+    res.redirect(`/products/${product._id}`)
+
 } )
 
+app.delete("/products/:id", async(req, res)=>{
+    // res.send("edit")
+    const {id} = req.params
+    const product = await Product.findByIdAndDelete(id)
+    res.redirect(`/products`)
+
+} )
+
+
+app.post("/products", async(req, res)=>{
+    const newProduct = Product(req.body)
+    await newProduct.save()
+    res.redirect(`/products/${newProduct._id}`)
+})
